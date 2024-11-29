@@ -24,8 +24,8 @@
 # Use args for Tomcat image label to allow image builder to choose alternatives
 # such as `--build-arg TOMCAT_JRE=jre8-alpine`
 #
-ARG TOMCAT_VERSION=8.5
-ARG TOMCAT_JRE=jdk8
+ARG TOMCAT_VERSION=9
+ARG TOMCAT_JRE=jdk21
 
 # Use official maven image for the build
 FROM maven:3-eclipse-temurin-8-focal AS builder
@@ -73,6 +73,7 @@ FROM tomcat:${TOMCAT_VERSION}-${TOMCAT_JRE}
 
 # Install XMLStarlet for server.xml alterations and unzip for LOGBACK_LEVEL case
 RUN apt-get update -qq \
+    && apt-get upgrade -y \
     && apt-get install -y xmlstarlet unzip\
     && rm -rf /var/lib/apt/lists/* 
 
