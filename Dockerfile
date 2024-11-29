@@ -78,7 +78,8 @@ FROM tomcat:${TOMCAT_VERSION}-${TOMCAT_JRE}
 
 # Install XMLStarlet for server.xml alterations
 RUN apt-get update -qq \
-    && apt-get install -y xmlstarlet \
+    && apt-get upgrade -y \
+    && apt-get install -y xmlstarlet unzip\
     && rm -rf /var/lib/apt/lists/* 
 
 # This is where the build artifacts go in the runtime image
